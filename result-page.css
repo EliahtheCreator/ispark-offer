@@ -1,0 +1,144 @@
+:root {
+  --bg-deep: #070A12;
+  --ink: #E8EDF5;
+  --ink-dim: #8B95A8;
+  --accent: #B33A3A;
+  --gold: #E8B84B;
+  --line: rgba(179, 58, 58, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+  background: var(--bg-deep);
+  color: var(--ink);
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+#grid-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.result-view {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-icon {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+}
+
+.result-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.result-icon.accept {
+  border-color: var(--accent);
+}
+
+.result-icon.accept svg {
+  stroke: var(--accent);
+}
+
+.result-icon.think {
+  border-color: var(--gold);
+}
+
+.result-icon.think svg {
+  stroke: var(--gold);
+}
+
+.result-icon.reject {
+  border-color: rgba(255, 140, 140, .3);
+}
+
+.result-icon.reject svg {
+  stroke: #FF8888;
+}
+
+.result-text {
+  max-width: 560px;
+  margin-bottom: 16px;
+  color: var(--ink);
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.accent-word {
+  color: var(--accent);
+}
+
+.result-sub {
+  margin-bottom: 48px;
+  color: var(--ink-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 12px 36px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all .25s ease;
+}
+
+.btn-back:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-view,
+  .btn-back {
+    animation: none;
+    transition: none;
+  }
+}
