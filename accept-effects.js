@@ -22,13 +22,13 @@
     clearTimeout(timer);
     if (motion.matches || document.hidden) return;
     // Irregular quiet periods alternate with short, clustered signal failures.
-    const delay = cluster > 0 ? rand(45, 180) : Math.random() < .12 ? rand(1500, 2600) : rand(180, 850);
+    const delay = cluster > 0 ? rand(100, 280) : Math.random() < .16 ? rand(2200, 3600) : rand(550, 1400);
     timer = setTimeout(burst, delay);
   }
   function burst() {
     if (motion.matches || document.hidden) return;
     if (cluster > 0) cluster--;
-    else if (Math.random() < .5) cluster = Math.floor(rand(2, 6));
+    else if (Math.random() < .35) cluster = Math.floor(rand(1, 4));
     const roll = Math.random();
     const type = roll < .1 ? 'dots' : roll < .45 ? 'blocks' : roll < .7 ? 'tear' : 'dropout';
     const duration = type === 'dots' ? rand(100, 220) : rand(220, 620);
