@@ -3,6 +3,8 @@
   const ctx = canvas.getContext('2d');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const view = document.querySelector('.result-view');
+  const warp = document.getElementById('warp-displacement');
+  const noise = document.getElementById('warp-noise');
   const rand = (min, max) => min + Math.random() * (max - min);
   let timer, frame, width, height, cluster = 0;
   function resize() {
@@ -12,31 +14,41 @@
   function clear() {
     cancelAnimationFrame(frame);
     view.style.removeProperty('translate');
+    view.style.removeProperty('filter');
+    warp.setAttribute('scale', '0');
     ctx.clearRect(0, 0, width, height);
   }
   function schedule() {
     clearTimeout(timer);
     if (motion.matches || document.hidden) return;
     // Irregular quiet periods alternate with short, clustered signal failures.
-    const delay = cluster > 0 ? rand(65, 320) : Math.random() < .18 ? rand(2800, 4600) : rand(350, 1900);
+    const delay = cluster > 0 ? rand(45, 180) : Math.random() < .12 ? rand(1500, 2600) : rand(180, 850);
     timer = setTimeout(burst, delay);
   }
   function burst() {
     if (motion.matches || document.hidden) return;
     if (cluster > 0) cluster--;
-    else if (Math.random() < .32) cluster = Math.floor(rand(1, 4));
+    else if (Math.random() < .5) cluster = Math.floor(rand(2, 6));
     const roll = Math.random();
-    const type = roll < .18 ? 'dots' : roll < .64 ? 'blocks' : roll < .88 ? 'tear' : 'dropout';
-    const duration = type === 'dots' ? rand(80, 180) : rand(160, 480);
+    const type = roll < .1 ? 'dots' : roll < .45 ? 'blocks' : roll < .7 ? 'tear' : 'dropout';
+    const duration = type === 'dots' ? rand(100, 220) : rand(220, 620);
     const x = rand(0, width * .65), y = rand(0, height * .8);
-    const patchWidth = Math.min(width - x, rand(width * .25, width * .65));
-    const patchHeight = Math.min(height - y, rand(height * .09, height * .28));
+    const patchWidth = Math.min(width - x, rand(width * .35, width * .8));
+    const patchHeight = Math.min(height - y, rand(height * .12, height * .35));
+    const distort = type !== 'dots' && Math.random() < .85;
     const start = performance.now();
     let nextPaint = 0;
     function draw(now) {
       if (now - start > duration) { clear(); schedule(); return; }
       if (now >= nextPaint) {
-        nextPaint = now + rand(25, 95);
+        nextPaint = now + rand(35, 100);
+        if (distort) {
+          // Displace the original pixels only: no recoloring, font swaps or asset edits.
+          noise.setAttribute('seed', Math.floor(rand(1, 9999)));
+          noise.setAttribute('baseFrequency', `0.001 ${rand(.035, .15)}`);
+          warp.setAttribute('scale', rand(18, type === 'dropout' ? 85 : 48));
+          view.style.filter = 'url(#signal-warp)';
+        }
         ctx.clearRect(0, 0, width, height);
         if (type === 'dots') {
           for (let i = 0, n = rand(20, 65); i < n; i++) {
