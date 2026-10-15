@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="./result-page.css">
   <meta name="description" content="ISpark Offer 接受确认">
-  <link rel="stylesheet" href="./accept-effects.css">
+  <link rel="stylesheet" href="./accept-effects.css?v=20261015-logo-warp-strong">
 </head>
 <body class="accept-page">
   <svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none">
     <defs>
-      <filter id="signal-warp" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <filter id="signal-warp" x="-60%" y="-40%" width="220%" height="180%" color-interpolation-filters="sRGB">
         <feTurbulence id="warp-noise" type="turbulence" baseFrequency="0.002 0.09" numOctaves="1" seed="1" result="noise"/>
         <feComponentTransfer in="noise" result="horizontal-noise">
           <feFuncR id="warp-profile" type="identity"/>
@@ -25,12 +25,14 @@
   <canvas id="grid-canvas"></canvas>
   <div class="signal-hud" aria-hidden="true"><span><i></i> ISPARK / CONNECTED</span><span>HUMAN × AI</span></div>
   <main class="result-view">
+    <div class="logo-signal">
     <img class="brand-logo" src="./assets/ispark-logo.png" alt="ISpark" width="1600" height="586">
+    </div>
     <div class="connection-label" aria-hidden="true">NEW CONNECTION ESTABLISHED</div>
     <div class="result-text">ISpark 欢迎你的加入，<br>我们期待与你做出<span class="accent-word">影响未来</span>的成果！</div>
     <div class="result-sub">// WELCOME TO THE FUTURE</div>
   </main>
   <script src="./background.js?v=20261015-clean"></script>
-  <script src="./accept-effects.js?v=20261015-wave-tear-only"></script>
+  <script src="./accept-effects.js?v=20261015-logo-warp-strong"></script>
 </body>
 </html>

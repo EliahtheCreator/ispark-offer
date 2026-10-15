@@ -15,3 +15,5 @@
 .accept-page .result-view { transform: translateY(-41px); }
 .accept-page .brand-logo { margin-top: 82px; }
 .accept-page .connection-label { margin-bottom: 24px; }
+
+.logo-signal { display: flex; flex: 0 0 auto; justify-content: center; }
