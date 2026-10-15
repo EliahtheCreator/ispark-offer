@@ -10,3 +10,8 @@
 #glitch-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
 @media (max-width: 600px) { .signal-hud { top: 22px; left: 20px; right: 20px; font-size: 8px; letter-spacing: 1px; } .connection-label { font-size: 8px; letter-spacing: 2px; } .accept-page .result-view { min-height: 100svh; padding-top: 80px; padding-bottom: 64px; } }
 @media (prefers-reduced-motion: reduce) { .accept-page.is-glitching .result-view { animation: none; } #glitch-canvas { display: none; } }
+
+/* Keep the logo anchored while bringing the welcome copy into the removed icon space. */
+.accept-page .result-view { transform: translateY(-41px); }
+.accept-page .brand-logo { margin-top: 82px; }
+.accept-page .connection-label { margin-bottom: 24px; }

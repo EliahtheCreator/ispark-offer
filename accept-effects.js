@@ -11,7 +11,7 @@
   }
   function clear() {
     cancelAnimationFrame(frame);
-    view.style.removeProperty('transform');
+    view.style.removeProperty('translate');
     ctx.clearRect(0, 0, width, height);
   }
   function schedule() {
@@ -26,11 +26,11 @@
     if (cluster > 0) cluster--;
     else if (Math.random() < .32) cluster = Math.floor(rand(1, 4));
     const roll = Math.random();
-    const type = roll < .38 ? 'dots' : roll < .7 ? 'blocks' : roll < .93 ? 'tear' : 'dropout';
-    const duration = type === 'dots' ? rand(35, 110) : rand(70, 290);
-    const x = rand(0, width * .85), y = rand(0, height * .92);
-    const patchWidth = Math.min(width - x, rand(35, Math.min(240, width * .4)));
-    const patchHeight = Math.min(height - y, rand(18, 100));
+    const type = roll < .18 ? 'dots' : roll < .64 ? 'blocks' : roll < .88 ? 'tear' : 'dropout';
+    const duration = type === 'dots' ? rand(80, 180) : rand(160, 480);
+    const x = rand(0, width * .65), y = rand(0, height * .8);
+    const patchWidth = Math.min(width - x, rand(width * .25, width * .65));
+    const patchHeight = Math.min(height - y, rand(height * .09, height * .28));
     const start = performance.now();
     let nextPaint = 0;
     function draw(now) {
@@ -39,32 +39,32 @@
         nextPaint = now + rand(25, 95);
         ctx.clearRect(0, 0, width, height);
         if (type === 'dots') {
-          for (let i = 0, n = rand(1, 12); i < n; i++) {
-            ctx.fillStyle = `rgba(235,242,245,${rand(.3, .85)})`;
-            const size = Math.random() < .85 ? rand(1, 3) : rand(3, 6);
+          for (let i = 0, n = rand(20, 65); i < n; i++) {
+            ctx.fillStyle = `rgba(235,242,245,${rand(.65, 1)})`;
+            const size = Math.random() < .85 ? rand(2, 5) : rand(5, 10);
             ctx.fillRect(rand(0, width), rand(0, height), size, size);
           }
         } else if (type === 'blocks') {
-          const cell = Math.floor(rand(5, 18));
+          const cell = Math.floor(rand(10, 30));
           for (let by = 0; by < patchHeight; by += cell) {
             for (let bx = 0; bx < patchWidth; bx += cell) {
-              if (Math.random() < .25) continue;
-              const shade = Math.floor(rand(35, 205));
-              ctx.fillStyle = Math.random() < .22 ? `rgba(172,62,58,${rand(.2,.65)})` : `rgba(${shade},${shade},${shade},${rand(.15,.65)})`;
+              if (Math.random() < .12) continue;
+              const shade = Math.floor(rand(70, 245));
+              ctx.fillStyle = Math.random() < .22 ? `rgba(172,62,58,${rand(.5,.9)})` : `rgba(${shade},${shade},${shade},${rand(.45,.9)})`;
               ctx.fillRect(x + bx, y + by, cell - 1, cell - 1);
             }
           }
         } else {
           const bandY = y + rand(-8, 8);
-          const bandH = type === 'dropout' ? rand(12, 45) : rand(1, 9);
+          const bandH = type === 'dropout' ? rand(35, 100) : rand(6, 24);
           ctx.fillStyle = 'rgba(4,7,13,.8)';
           ctx.fillRect(0, bandY, width, bandH);
           for (let bx = 0; bx < width; bx += rand(3, 24)) {
-            ctx.fillStyle = Math.random() < .15 ? 'rgba(74,168,183,.45)' : `rgba(215,222,225,${rand(.04,.42)})`;
-            ctx.fillRect(bx, bandY + rand(0, bandH), rand(2, 35), rand(1, 3));
+            ctx.fillStyle = Math.random() < .15 ? 'rgba(74,168,183,.45)' : `rgba(215,222,225,${rand(.25,.8)})`;
+            ctx.fillRect(bx, bandY + rand(0, bandH), rand(5, 65), rand(2, 7));
           }
           // Only occasional heavier failures disturb the whole picture.
-          if (type === 'dropout') view.style.transform = `translate(${rand(-5,5)}px,${rand(-1,1)}px)`;
+          if (type === 'dropout') view.style.translate = `${rand(-14,14)}px ${rand(-3,3)}px`;
         }
       }
       frame = requestAnimationFrame(draw);
