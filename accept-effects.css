@@ -1,0 +1,21 @@
+.accept-page { background: #070a12; }
+.accept-page::before { content: ''; position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 42%, rgba(179,58,58,.09), transparent 58%); }
+.brand-logo { width: clamp(190px, 28vw, 330px); height: auto; margin-bottom: 30px; }
+.connection-label { font: 10px 'JetBrains Mono', monospace; letter-spacing: 3px; color: #7c899b; margin-bottom: 34px; }
+.accept-page .result-icon { width: 58px; height: 58px; position: relative; margin-bottom: 24px; background: rgba(179,58,58,.04); box-shadow: 0 0 32px rgba(179,58,58,.08); }
+.accept-page .result-icon::after { content: ''; position: absolute; inset: -7px; border: 1px solid rgba(179,58,58,.15); clip-path: polygon(0 0,25% 0,25% 2%,2% 2%,2% 25%,0 25%,0 0,100% 100%,75% 100%,75% 98%,98% 98%,98% 75%,100% 75%,100% 100%); }
+.accept-page .result-sub { font-size: 11px; letter-spacing: 2px; margin-bottom: 0; }
+.signal-hud { position: fixed; top: 28px; left: 32px; right: 32px; display: flex; justify-content: space-between; z-index: 2; color: #637084; font: 10px 'JetBrains Mono', monospace; letter-spacing: 2px; pointer-events: none; }
+.signal-hud i { display: inline-block; width: 5px; height: 5px; background: #be4a44; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px #b33a3a; }
+#glitch-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+.accept-page.is-glitching .result-view { animation: signal-break .42s steps(1) both; }
+@keyframes signal-break {
+  0%, 100% { transform: translate(0); filter: none; }
+  12% { transform: translate(-5px,1px); filter: drop-shadow(3px 0 rgba(80,190,220,.65)) drop-shadow(-3px 0 rgba(230,65,65,.65)); }
+  28% { transform: translate(4px,-1px); clip-path: inset(0 0 2% 0); }
+  42% { transform: translate(-2px,0); filter: drop-shadow(5px 0 rgba(80,190,220,.5)); }
+  60% { transform: translate(3px,1px); filter: drop-shadow(-4px 0 rgba(230,65,65,.65)); }
+  78% { transform: translate(0); filter: none; }
+}
+@media (max-width: 600px) { .signal-hud { top: 22px; left: 20px; right: 20px; font-size: 8px; letter-spacing: 1px; } .connection-label { font-size: 8px; letter-spacing: 2px; } .accept-page .result-view { min-height: 100svh; padding-top: 80px; padding-bottom: 64px; } }
+@media (prefers-reduced-motion: reduce) { .accept-page.is-glitching .result-view { animation: none; } #glitch-canvas { display: none; } }
