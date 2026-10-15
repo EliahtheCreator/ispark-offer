@@ -82,7 +82,7 @@ function drawGrid() {
     ctx.stroke();
   }
 
-  var particleCount = 30;
+  var particleCount = enhancedSignal ? 0 : 30;
   for (var p = 0; p < particleCount; p++) {
     var seed = p * 137.5;
     var px = (Math.sin(seed) * 0.5 + 0.5) * W;
